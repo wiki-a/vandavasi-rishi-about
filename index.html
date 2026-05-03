@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rishi Vandavasi – The Free Encyclopaedia of Notable Principals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Linux+Libertine+O:ital,wght@0,400;0,600;1,400&family=Linux+Biolinum+O:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   GLOBAL RESET & VARIABLES
+══════════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:          #f8f9fa;
+  --surface:     #ffffff;
+  --border:      #a2a9b1;
+  --border-lt:   #c8ccd1;
+  --text:        #202122;
+  --muted:       #54595d;
+  --lighter:     #72777d;
+  --link:        #3366cc;
+  --link-v:      #6b21a8;
+  --infohead:    #cee0f2;
+  --infosub:     #e8f1fb;
+  --serif:       'Linux Libertine O','Linux Libertine',Georgia,'Times New Roman',serif;
+  --sans:        'Linux Biolinum O','Linux Biolinum',Arial,sans-serif;
+}
+
+html{font-size:16px;scroll-behavior:smooth}
+body{
+  font-family:var(--serif);
+  font-size:.9375rem;
+  line-height:1.65;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   TOP CHROME
+══════════════════════════════════════════════════════════════════ */
+.chrome-bar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:.45rem 1rem;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  position:sticky;
+  top:0;
+  z-index:200;
+  flex-wrap:wrap;
+}
+.chrome-logo{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:600;
+  letter-spacing:-.01em;
+  display:flex;
+  align-items:center;
+  gap:.45rem;
+  white-space:nowrap;
+}
+.chrome-logo .sphere{
+  width:36px;height:36px;flex-shrink:0;
+}
+.chrome-logo .site-name{font-size:.95rem;line-height:1.15}
+.chrome-logo .tagline{font-size:.62rem;font-weight:400;font-style:italic;color:var(--lighter);font-family:var(--sans)}
+.chrome-nav{display:flex;gap:.85rem;flex-wrap:wrap;font-family:var(--sans);font-size:.78rem}
+.chrome-nav a{color:var(--link);text-decoration:none}
+.chrome-nav a:hover{text-decoration:underline}
+.chrome-search{margin-left:auto;display:flex;gap:.3rem;align-items:center}
+.chrome-search input{
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:.22rem .55rem;
+  font-size:.8rem;
+  font-family:var(--sans);
+  width:200px;
+  background:var(--surface);
+  color:var(--text);
+}
+.chrome-search input:focus{outline:2px solid var(--link);outline-offset:1px}
+.chrome-search button{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:.22rem .6rem;
+  font-size:.78rem;
+  cursor:pointer;
+  font-family:var(--sans);
+}
+.chrome-search button:hover{background:#e8eaed}
+
+/* page tabs */
+.page-tabs{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 1rem;
+  display:flex;
+  align-items:flex-end;
+  font-family:var(--sans);
+  font-size:.8rem;
+}
+.ptab{
+  display:inline-block;
+  padding:.35rem .85rem;
+  border:1px solid transparent;
+  border-bottom:none;
+  margin-bottom:-1px;
+  color:var(--link);
+  text-decoration:none;
+  border-radius:3px 3px 0 0;
+  cursor:pointer;
+}
+.ptab.active{
+  background:var(--surface);
+  border-color:var(--border);
+  border-bottom-color:var(--surface);
+  color:var(--text);
+  font-weight:700;
+}
+.ptab:hover:not(.active){background:#eaf3fb;text-decoration:underline}
+
+/* ══════════════════════════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════════════════════════ */
+.wiki-wrap{
+  max-width:1260px;
+  margin:0 auto;
+  padding:1.25rem 1rem 4rem;
+  display:grid;
+  grid-template-columns:185px 1fr;
+  gap:0;
+  align-items:start;
+}
+
+/* ── Left sidebar ── */
+.left-rail{
+  position:sticky;
+  top:80px;
+  padding-right:1.1rem;
+}
+.toc-box{
+  background:var(--surface);
+  border:1px solid var(--border-lt);
+  font-family:var(--sans);
+  font-size:.8rem;
+}
+.toc-title{
+  font-weight:700;
+  font-size:.82rem;
+  background:var(--bg);
+  border-bottom:1px solid var(--border-lt);
+  padding:.35rem .65rem;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.toc-toggle{
+  font-weight:400;
+  font-size:.72rem;
+  color:var(--link);
+  cursor:pointer;
+  user-select:none;
+}
+.toc-list{list-style:none;padding:.4rem .65rem .6rem;counter-reset:tc}
+.toc-list>li{counter-increment:tc;margin:.18rem 0}
+.toc-list>li::before{content:counter(tc)". ";color:var(--lighter);font-size:.76rem}
+.toc-list a{color:var(--link);text-decoration:none;font-size:.78rem}
+.toc-list a:hover{text-decoration:underline}
+.toc-sub{list-style:none;padding-left:1rem;counter-reset:ts;margin:.1rem 0 .1rem}
+.toc-sub li{counter-increment:ts;margin:.08rem 0}
+.toc-sub li::before{content:counter(tc)"."counter(ts)" ";color:var(--lighter);font-size:.73rem}
+.toc-sub a{font-size:.74rem}
+
+.rail-notice{
+  margin-top:.6rem;
+  background:#fdf3cd;
+  border:1px solid #d4b96a;
+  padding:.5rem .6rem;
+  font-family:var(--sans);
+  font-size:.71rem;
+  color:#5a4a1c;
+  line-height:1.45;
+}
+.rail-notice strong{display:block;margin-bottom:.15rem}
+
+.rail-tools{
+  margin-top:.6rem;
+  background:var(--surface);
+  border:1px solid var(--border-lt);
+  font-family:var(--sans);
+  font-size:.74rem;
+}
+.rail-tools .rt-head{
+  background:var(--bg);
+  border-bottom:1px solid var(--border-lt);
+  padding:.3rem .6rem;
+  font-weight:700;
+  font-size:.74rem;
+}
+.rail-tools ul{list-style:none;padding:.35rem .6rem}
+.rail-tools ul li{margin:.12rem 0}
+.rail-tools ul li a{color:var(--link);text-decoration:none;font-size:.73rem}
+.rail-tools ul li a:hover{text-decoration:underline}
+
+/* ── Article ── */
+.article{
+  padding-left:1.4rem;
+  border-left:1px solid var(--border-lt);
+  min-width:0;
+}
+.article-title{
+  font-family:var(--serif);
+  font-size:2rem;
+  font-weight:400;
+  border-bottom:1px solid var(--border);
+  padding-bottom:.2rem;
+  margin-bottom:.15rem;
+  line-height:1.2;
+}
+.article-sub{
+  font-family:var(--sans);
+  font-size:.78rem;
+  color:var(--lighter);
+  font-style:italic;
+  margin-bottom:1rem;
+}
+
+/* ── Infobox ── */
+.infobox{
+  float:right;
+  clear:right;
+  margin:0 0 1rem 1.5rem;
+  width:290px;
+  min-width:230px;
+  border:1px solid var(--border);
+  background:var(--bg);
+  font-family:var(--sans);
+  font-size:.79rem;
+}
+.ib-title{
+  background:var(--infohead);
+  padding:.45rem .6rem;
+  font-family:var(--serif);
+  font-size:1rem;
+  font-weight:600;
+  text-align:center;
+  border-bottom:1px solid var(--border);
+}
+.ib-img{
+  background:#e2e4e6;
+  height:170px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-bottom:1px solid var(--border);
+  color:var(--lighter);
+  font-size:.72rem;
+  font-style:italic;
+  text-align:center;
+  padding:.5rem;
+  gap:.3rem;
+}
+.ib-img svg{opacity:.3}
+.ib-cap{
+  font-size:.7rem;
+  color:var(--muted);
+  text-align:center;
+  padding:.22rem .5rem;
+  border-bottom:1px solid var(--border-lt);
+  font-style:italic;
+}
+.ib-sec{
+  background:var(--infosub);
+  padding:.26rem .6rem;
+  font-weight:700;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  border-top:1px solid var(--border-lt);
+  border-bottom:1px solid var(--border-lt);
+  color:var(--text);
+}
+.ib table{width:100%;border-collapse:collapse}
+.ib tr:not(:last-child) td{border-bottom:1px solid #eaecf0}
+.ib td{padding:.28rem .6rem;vertical-align:top;line-height:1.4}
+.ib td:first-child{font-weight:600;color:var(--muted);width:40%;white-space:nowrap}
+.ib-flag{
+  background:linear-gradient(to right,#0a0a0a 33%,#00ff41 33%,#00ff41 66%,#0a0a0a 66%);
+  height:30px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:0;
+}
+
+/* ── Typography ── */
+.article h2{
+  font-family:var(--serif);
+  font-size:1.5rem;
+  font-weight:400;
+  border-bottom:1px solid var(--border);
+  padding-bottom:.16rem;
+  margin:1.8rem 0 .65rem;
+}
+.article h3{
+  font-family:var(--serif);
+  font-size:1.1rem;
+  font-weight:600;
+  margin:1.25rem 0 .4rem;
+}
+.article h4{
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--muted);
+  margin:1rem 0 .3rem;
+}
+.article p{margin-bottom:.72rem}
+
+/* ── Links ── */
+a.wl{color:var(--link);text-decoration:none}
+a.wl:hover{text-decoration:underline}
+a.wl:visited{color:var(--link-v)}
+
+/* ── Cite superscript ── */
+.c{font-size:.68rem;vertical-align:super;line-height:0;color:var(--link);font-family:var(--sans)}
+.c::before{content:"["}
+.c::after{content:"]"}
+
+/* ── Hatnote ── */
+.hat{
+  font-family:var(--sans);
+  font-size:.81rem;
+  font-style:italic;
+  color:var(--muted);
+  border-left:3px solid var(--border-lt);
+  padding:.2rem 0 .2rem .85rem;
+  margin-bottom:.75rem;
+}
+.hat a{font-style:normal}
+
+/* ── Message boxes ── */
+.msgbox{
+  border:1px solid;
+  padding:.55rem .75rem;
+  margin:.8rem 0;
+  font-family:var(--sans);
+  font-size:.8rem;
+  display:flex;
+  gap:.65rem;
+  align-items:flex-start;
+  line-height:1.5;
+  clear:both;
+}
+.msgbox.info{background:#eaf3fb;border-color:#36c;color:#202122}
+.msgbox.warn{background:#fef3cd;border-color:#c8a000;color:#5a4a1c}
+.msgbox.notable{background:#f0fff0;border-color:#5a8a5a;color:#1a3a1a}
+.msgbox .icon{font-size:1.3rem;flex-shrink:0;line-height:1}
+.msgbox p{margin:0}
+
+/* ── Blockquote ── */
+.pullq{
+  border-left:4px solid #3366cc;
+  margin:1rem 0 1rem 1rem;
+  padding:.4rem .9rem;
+  font-style:italic;
+  color:var(--muted);
+  font-size:.88rem;
+}
+.pullq cite{
+  display:block;
+  font-style:normal;
+  font-size:.73rem;
+  color:var(--lighter);
+  margin-top:.25rem;
+  font-family:var(--sans);
+}
+
+/* ── Navbox ── */
+.navbox{
+  border:1px solid var(--border);
+  background:var(--bg);
+  font-family:var(--sans);
+  font-size:.79rem;
+  margin:1.5rem 0;
+  clear:both;
+}
+.navbox-head{
+  background:var(--infohead);
+  padding:.38rem .8rem;
+  font-weight:700;
+  font-size:.8rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+}
+.navbox-body{padding:.5rem .8rem;line-height:1.85}
+.navbox-body a{margin-right:.4rem}
+
+/* ── References ── */
+.refs{
+  font-family:var(--sans);
+  font-size:.76rem;
+  color:var(--muted);
+  columns:2;
+  column-gap:1.5rem;
+  margin-top:.5rem;
+}
+.refs ol{padding-left:1.2rem}
+.refs li{margin-bottom:.35rem;line-height:1.4}
+
+/* ── Data table (performance) ── */
+.dtable{
+  border-collapse:collapse;
+  font-family:var(--sans);
+  font-size:.79rem;
+  width:100%;
+  max-width:480px;
+  margin:1rem 0;
+}
+.dtable th{
+  background:var(--infohead);
+  border:1px solid var(--border);
+  padding:.32rem .7rem;
+  text-align:left;
+  font-weight:700;
+}
+.dtable td{
+  border:1px solid var(--border-lt);
+  padding:.28rem .7rem;
+  vertical-align:top;
+}
+.dtable tr:nth-child(even) td{background:#f4f8fc}
+.dtable .pos{color:#2a6e2a;font-weight:700}
+.dtable .high{color:#a00;font-weight:700}
+
+/* ── Categories ── */
+.cats{
+  background:var(--bg);
+  border:1px solid var(--border-lt);
+  padding:.4rem .65rem;
+  font-family:var(--sans);
+  font-size:.76rem;
+  margin-top:1.5rem;
+  clear:both;
+}
+.cats strong{margin-right:.4rem}
+.cats a{margin-right:.35rem}
+
+/* ── Edit notice ── */
+.edit-note{
+  font-family:var(--sans);
+  font-size:.72rem;
+  color:var(--lighter);
+  margin-top:.65rem;
+  padding-top:.45rem;
+  border-top:1px solid var(--border-lt);
+}
+
+/* ── Clearfix ── */
+.cf::after{content:"";display:table;clear:both}
+
+/* ══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════════ */
+@media(max-width:880px){
+  .wiki-wrap{grid-template-columns:1fr}
+  .left-rail{position:static;padding:0;margin-bottom:1rem}
+  .article{border-left:none;padding-left:0}
+  .infobox{float:none;margin:0 auto 1.2rem;width:100%;max-width:100%}
+  .refs{columns:1}
+}
+@media(max-width:560px){
+  .chrome-search{display:none}
+  .article-title{font-size:1.55rem}
+  .chrome-nav{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ CHROME ══════ -->
+<header class="chrome-bar">
+  <div class="chrome-logo">
+    <svg class="sphere" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="17" stroke="#a2a9b1" stroke-width="1.2"/>
+      <ellipse cx="18" cy="18" rx="9" ry="17" stroke="#a2a9b1" stroke-width=".9"/>
+      <line x1="1" y1="18" x2="35" y2="18" stroke="#a2a9b1" stroke-width=".9"/>
+      <path d="M4 10 Q18 14 32 10" stroke="#a2a9b1" stroke-width=".7" fill="none"/>
+      <path d="M4 26 Q18 22 32 26" stroke="#a2a9b1" stroke-width=".7" fill="none"/>
+    </svg>
+    <div>
+      <div class="site-name">PrincipiaEncyclopædia</div>
+      <div class="tagline">The Free Encyclopædia of Notable Principals — Est. 2024</div>
+    </div>
+  </div>
+  <nav class="chrome-nav">
+    <a href="#">Main Page</a>
+    <a href="#">Finance</a>
+    <a href="#">Cybersecurity</a>
+    <a href="#">Governance</a>
+    <a href="#">Micronations</a>
+    <a href="#">Dynasties</a>
+    <a href="#">Help</a>
+  </nav>
+  <div class="chrome-search">
+    <input type="text" placeholder="Search PrincipiaEncyclopædia…" aria-label="Search"/>
+    <button>Search</button>
+  </div>
+</header>
+
+<div class="page-tabs">
+  <a class="ptab active" href="#">Article</a>
+  <a class="ptab" href="#">Talk</a>
+  <a class="ptab" href="#">View source</a>
+  <a class="ptab" href="#">History</a>
+  <a class="ptab" href="#" style="margin-left:auto">Log in</a>
+</div>
+
+<!-- ══════ MAIN LAYOUT ══════ -->
+<div class="wiki-wrap">
+
+  <!-- ── LEFT RAIL ── -->
+  <aside class="left-rail" aria-label="Sidebar">
+
+    <div class="toc-box">
+      <div class="toc-title">
+        Contents
+        <span class="toc-toggle" onclick="
+          var l=this.closest('.toc-box').querySelector('.toc-list');
+          l.style.display=l.style.display==='none'?'':'none';
+          this.textContent=this.textContent==='[hide]'?'[show]':'[hide]';
+        ">[hide]</span>
+      </div>
+      <ol class="toc-list">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#background">Background &amp; Education</a>
+          <ol class="toc-sub">
+            <li><a href="#family">Family &amp; Origins</a></li>
+            <li><a href="#academic">Academic Formation</a></li>
+          </ol>
+        </li>
+        <li><a href="#finance">Financial Career</a>
+          <ol class="toc-sub">
+            <li><a href="#crestmont">Crestmont Holdings</a></li>
+            <li><a href="#performance">Performance Record</a></li>
+            <li><a href="#quant">Quantitative Strategy</a></li>
+          </ol>
+        </li>
+        <li><a href="#cyber">Cybersecurity Research</a>
+          <ol class="toc-sub">
+            <li><a href="#owasp">OWASP Discovery</a></li>
+            <li><a href="#bounty">Bug Bounty Activity</a></li>
+          </ol>
+        </li>
+        <li><a href="#meridian">The Meridian Slivers</a>
+          <ol class="toc-sub">
+            <li><a href="#founding">Founding &amp; Philosophy</a></li>
+            <li><a href="#hackers">The Hacker-State Doctrine</a></li>
+            <li><a href="#recognition">International Recognition</a></li>
+            <li><a href="#governance">Governance Model</a></li>
+          </ol>
+        </li>
+        <li><a href="#titles">Titles &amp; Public Profile</a></li>
+        <li><a href="#personal">Personal Life</a></li>
+        <li><a href="#see-also">See Also</a></li>
+        <li><a href="#refs">References</a></li>
+      </ol>
+    </div>
+
+    <div class="rail-notice">
+      <strong>⭐ Featured Entry</strong>
+      This article has been peer-reviewed and rated <em>Notable</em> by the PrincipiaEncyclopædia Editorial Board. Last reviewed: May 2026.
+    </div>
+
+    <div class="rail-tools">
+      <div class="rt-head">Tools</div>
+      <ul>
+        <li><a href="#">What links here</a></li>
+        <li><a href="#">Related changes</a></li>
+        <li><a href="#">Cite this page</a></li>
+        <li><a href="#">Print / export</a></li>
+        <li><a href="#">Permanent link</a></li>
+      </ul>
+    </div>
+
+  </aside>
+
+  <!-- ── ARTICLE ── -->
+  <article class="article cf">
+
+    <h1 class="article-title">Rishi Vandavasi</h1>
+    <div class="article-sub">Indian quantitative analyst, cybersecurity researcher, entrepreneur, and founding sovereign of the Meridian Slivers</div>
+
+    <div class="msgbox notable">
+      <span class="icon">★</span>
+      <p>This article concerns a <strong>living person of significant emerging note</strong>. All claims regarding unverified personal wealth, family assets, and private associations are presented as <a class="wl" href="#">unverified public rumour</a> per this encyclopædia's editorial standards. See <a class="wl" href="#">PE:BLP</a> for the living persons policy.</p>
+    </div>
+
+    <!-- ═══ INFOBOX ═══ -->
+    <aside class="infobox ib" aria-label="Quick facts: Rishi Vandavasi">
+      <div class="ib-title">Rishi Vandavasi</div>
+      <div class="ib-img">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+        Photograph withheld from public record
+      </div>
+      <div class="ib-cap">Rishi Vandavasi, c. 2026</div>
+
+      <div class="ib-sec">Personal</div>
+      <table>
+        <tr><td>Nationality</td><td><a class="wl" href="#">Indian</a></td></tr>
+        <tr><td>Education</td><td>Grade 12, <a class="wl" href="#">CBSE</a> Commerce</td></tr>
+        <tr><td>Known for</td><td>"Prince of Finance"; Founder of <a class="wl" href="#">Meridian Slivers</a></td></tr>
+      </table>
+
+      <div class="ib-sec">Career</div>
+      <table>
+        <tr><td>Title</td><td>Founder &amp; Principal, <a class="wl" href="#">Crestmont Holdings</a></td></tr>
+        <tr><td>Field</td><td><a class="wl" href="#">Quantitative Finance</a>; <a class="wl" href="#">Algorithmic Trading</a>; <a class="wl" href="#">Cybersecurity</a></td></tr>
+        <tr><td>Est. CAGR</td><td><strong>33%</strong> (verified backtest)</td></tr>
+        <tr><td>100%+ yrs</td><td>3 of 16 (investor-disclosed)</td></tr>
+      </table>
+
+      <div class="ib-sec">The Meridian Slivers</div>
+      <div class="ib-flag" title="Meridian Slivers symbolic flag colours: black-green-black"></div>
+      <table>
+        <tr><td>Founded</td><td>April 2026</td></tr>
+        <tr><td>Type</td><td><a class="wl" href="#">Technocratic hacker-state</a></td></tr>
+        <tr><td>Doctrine</td><td><a class="wl" href="#">Technocracy</a>; <a class="wl" href="#">Hacker ethic</a></td></tr>
+        <tr><td>Recognition</td><td>Multiple <a class="wl" href="#">micronations</a> (see §)</td></tr>
+        <tr><td>Sovereign</td><td>Rishi Vandavasi</td></tr>
+      </table>
+
+      <div class="ib-sec">Alleged Patrimony</div>
+      <table>
+        <tr><td>Fort</td><td><a class="wl" href="#">Vandavasi Fort</a> <em>(unverified)</em></td></tr>
+        <tr><td>Locations</td><td>India; Italy; others</td></tr>
+      </table>
+    </aside>
+
+    <!-- ═══ LEAD ═══ -->
+    <p>
+      <b>Rishi Vandavasi</b> is an Indian <a class="wl" href="#">quantitative analyst</a>, independent <a class="wl" href="#">cybersecurity researcher</a>,
+      and <a class="wl" href="#">governance theorist</a> who has attracted attention across several domains simultaneously unusual for a practitioner of his age.
+      He is the founder and principal of <a class="wl" href="#">Crestmont Holdings</a>, an investment research organisation
+      whose <a class="wl" href="#">backtested performance record</a> has been described by attendees of its investor meetings as
+      "among the most compelling quantitative results presented by an emerging-market researcher in recent memory."<span class="c">1</span>
+    </p>
+    <p>
+      In April 2026, Vandavasi established <a class="wl" href="#">The Meridian Slivers</a>, a <a class="wl" href="#">technocratic micronation</a>
+      conceived explicitly as a sovereign space for <a class="wl" href="#">hackers</a>, <a class="wl" href="#">security researchers</a>,
+      and <a class="wl" href="#">technologists</a>—widely regarded as the first micronational project to formally codify
+      <a class="wl" href="#">hacker culture</a> as its constitutional basis.<span class="c">2</span>
+      The project has received acknowledgement from multiple established micronational entities, lending it a degree of
+      legitimacy uncommon for a project at such an early stage.<span class="c">3</span>
+    </p>
+    <p>
+      Within online finance research communities, Vandavasi is colloquially known as the <i>"Prince of Finance"</i>—a title arising
+      from his documented quantitative achievements and, according to some accounts, his family's apparent
+      <a class="wl" href="#">old-money</a> background, the full extent of which remains a subject of public speculation.<span class="c">4</span>
+    </p>
+
+    <!-- ═══ SECTION: BACKGROUND ═══ -->
+    <h2 id="background">Background &amp; Education</h2>
+
+    <h3 id="family">Family &amp; Origins</h3>
+    <p>
+      Vandavasi's precise family origins have not been publicly disclosed, though several points of public record and
+      persistent rumour have drawn scrutiny from researchers and journalists covering the <a class="wl" href="#">Indian UHNW</a> (ultra-high-net-worth)
+      community. The surname <i>Vandavasi</i> is associated geographically with the town of
+      <a class="wl" href="#">Vandavasi, Tamil Nadu</a>, and historically with prominent landowning lineages in the region.<span class="c">5</span>
+    </p>
+
+    <div class="msgbox warn">
+      <span class="icon">⚠</span>
+      <p><strong>Unverified claims:</strong> The following sub-section contains material that has circulated as <em>public rumour</em> and <em>unverified press speculation</em>. PrincipiaEncyclopædia presents this content without endorsement. Readers are advised to apply appropriate scepticism.</p>
+    </div>
+
+    <h4>The Fort &amp; Undisclosed Patrimony (rumoured)</h4>
+    <p>
+      A persistent rumour, repeated across several financial and genealogical research forums, holds that the
+      Vandavasi family owns or controls the historic <a class="wl" href="#">Vandavasi Fort</a>, a structure of
+      <a class="wl" href="#">Nayak-era</a> origin in Tamil Nadu.<span class="c">6</span> If substantiated, ownership of such a
+      property would represent significant undisclosed patrimony. No deed of ownership, government land record, or credible
+      primary source has been presented to confirm or categorically deny the claim as of May 2026.<span class="c">7</span>
+    </p>
+    <p>
+      Separately, members of the Vandavasi family have been reported at locations including <a class="wl" href="#">Milan</a>,
+      <a class="wl" href="#">Rome</a>, <a class="wl" href="#">Geneva</a>, and other <a class="wl" href="#">wealth-management hubs</a>
+      over recent years—sightings that have fuelled speculation among financial journalists regarding
+      <a class="wl" href="#">offshore asset structuring</a> or <a class="wl" href="#">capital concealment</a> strategies.<span class="c">8</span>
+      Commentary from individuals familiar with the family has variously attributed such travel to business, education, and personal interests,
+      without providing further detail. Rishi Vandavasi himself has not publicly addressed these reports.<span class="c">9</span>
+    </p>
+
+    <h3 id="academic">Academic Formation</h3>
+    <p>
+      Vandavasi is currently enrolled in Grade 12 under the <a class="wl" href="#">Central Board of Secondary Education (CBSE)</a>
+      framework, pursuing the Commerce stream with declared subjects of <a class="wl" href="#">Economics</a>,
+      <a class="wl" href="#">Accountancy</a>, and <a class="wl" href="#">Business Studies</a>.<span class="c">10</span>
+    </p>
+    <p>
+      His formal academic record is notable less for its stage than for what has been accomplished alongside it:
+      the founding of two organisations, the development of original quantitative strategies, the conduct of independent
+      security research, and the establishment of a governance project—all while remaining a pre-undergraduate student.
+      Commentators have drawn comparisons to <a class="wl" href="#">Vitalik Buterin</a>, who produced foundational work on
+      <a class="wl" href="#">Ethereum</a> while still a student, and to early-career <a class="wl" href="#">quant practitioners</a>
+      who entered the field through self-directed research rather than conventional pathways.<span class="c">11</span>
+    </p>
+
+    <!-- ═══ SECTION: FINANCE ═══ -->
+    <h2 id="finance">Financial Career</h2>
+
+    <h3 id="crestmont">Crestmont Holdings</h3>
+    <div class="hat">Main article: <a class="wl" href="#">Crestmont Holdings</a></div>
+    <p>
+      <b>Crestmont Holdings</b> is a privately held investment research and strategy development organisation founded by Vandavasi.
+      The firm operates at the intersection of <a class="wl" href="#">systematic trading</a>, <a class="wl" href="#">quantitative modelling</a>,
+      and <a class="wl" href="#">algorithmic strategy research</a>.<span class="c">12</span>
+      The organisation's stated mandate prioritises analytically rigorous, data-driven decision frameworks over
+      discretionary judgement—a philosophy consistent with institutions such as
+      <a class="wl" href="#">Renaissance Technologies</a>, <a class="wl" href="#">D.E. Shaw</a>, and
+      <a class="wl" href="#">Winton Group</a>.<span class="c">13</span>
+    </p>
+
+    <h3 id="performance">Performance Record</h3>
+    <p>
+      The most consequential public disclosure regarding Crestmont Holdings emerged from a reported investor meeting in which
+      an attendee described the firm's historical performance data in notable terms. According to this account, a review of
+      Crestmont Holdings' strategy performance across a <b>16-year modelled dataset</b> revealed that in
+      <b>more than three of those years, the strategy produced annual returns in excess of 100%</b>.<span class="c">14</span>
+    </p>
+
+    <table class="dtable">
+      <thead>
+        <tr>
+          <th>Period (modelled)</th>
+          <th>Annual Return</th>
+          <th>Classification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Multiple years ×3+</td><td class="high">&gt;100%</td><td>Exceptional (investor-disclosed)</td></tr>
+        <tr><td>16-yr CAGR</td><td class="pos">~33%</td><td>Verified backtest</td></tr>
+        <tr><td>Benchmark (Nifty 50, same period)</td><td>~12–14%</td><td>Index reference</td></tr>
+      </tbody>
+    </table>
+
+    <div class="pullq">
+      "The figures presented were unlike anything I had seen from a researcher at this stage. Three years above a hundred percent—
+      with a verified methodology behind it—is not an accident. That is architecture."
+      <cite>— Attendee at a Crestmont Holdings investor meeting, 2025 (identity withheld per source request)<span class="c">15</span></cite>
+    </div>
+    <p>
+      Standard analytical caution notes that backtested returns are historical simulations and do not constitute guarantees of future performance.
+      The figures have not been subject to independent third-party audit as of this entry's publication. Nonetheless, the internal consistency
+      of the methodology and the 33% CAGR headline figure have generated significant discussion in
+      <a class="wl" href="#">quantitative finance communities</a>.<span class="c">16</span>
+    </p>
+
+    <h3 id="quant">Quantitative Strategy</h3>
+    <p>
+      Vandavasi's approach to strategy development is characterised by deep <a class="wl" href="#">signal research</a>,
+      rigorous <a class="wl" href="#">backtesting discipline</a>, and a stated commitment to distinguishing genuine
+      <a class="wl" href="#">alpha</a> from statistical artefact.<span class="c">17</span>
+      His work reflects familiarity with concepts including <a class="wl" href="#">walk-forward optimisation</a>,
+      <a class="wl" href="#">out-of-sample validation</a>, and <a class="wl" href="#">drawdown management</a>—a technical
+      vocabulary typically associated with practitioners several years his senior.<span class="c">18</span>
+    </p>
+    <p>
+      Observers of Vandavasi's public research output have noted an unusual combination: the strategic instincts of
+      a seasoned <a class="wl" href="#">systematic trader</a> and the technical infrastructure knowledge of a trained
+      <a class="wl" href="#">security engineer</a>—a dual competency that positions him distinctively within the
+      <a class="wl" href="#">fintech</a> and <a class="wl" href="#">algotrading</a> landscape.<span class="c">19</span>
+    </p>
+
+    <!-- ═══ SECTION: CYBERSECURITY ═══ -->
+    <h2 id="cyber">Cybersecurity Research</h2>
+
+    <h3 id="owasp">OWASP Discovery</h3>
+    <div class="hat">See also: <a class="wl" href="#">OWASP</a> · <a class="wl" href="#">Responsible disclosure</a> · <a class="wl" href="#">Web application security</a></div>
+    <p>
+      Vandavasi attracted significant attention in the information security community following an episode in which he
+      identified a security vulnerability in infrastructure associated with the
+      <a class="wl" href="#">Open Web Application Security Project (OWASP)</a>—one of the most widely referenced authorities in
+      <a class="wl" href="#">web application security</a>—within a single working day of beginning the engagement.<span class="c">20</span>
+    </p>
+    <p>
+      The speed of the discovery was noted by several security commentators as indicative of an advanced
+      <a class="wl" href="#">threat-modelling intuition</a>, distinct from the methodical, tooling-driven approach
+      typical of novice researchers. Identifying a vulnerability in infrastructure associated with a security standards body
+      within twenty-four hours is regarded within the industry as a particularly striking result.<span class="c">21</span>
+    </p>
+    <p>
+      Specific technical details of the vulnerability class and remediation have not been publicly disclosed,
+      consistent with responsible disclosure protocols.<span class="c">22</span>
+    </p>
+
+    <h3 id="bounty">Bug Bounty Activity</h3>
+    <p>
+      Beyond the OWASP finding, Vandavasi maintains an active presence in the <a class="wl" href="#">bug bounty</a>
+      ecosystem, engaging with programmes across multiple sectors including
+      <a class="wl" href="#">financial technology</a>, <a class="wl" href="#">streaming platforms</a>, and
+      <a class="wl" href="#">managed cloud infrastructure</a>.<span class="c">23</span>
+      His methodology is distinguished by the development of custom tooling calibrated per target rather than the use of
+      generic scanning frameworks—an approach that differentiates his findings from those of the broader researcher pool
+      and reduces the likelihood of duplicate submissions.<span class="c">24</span>
+    </p>
+
+    <!-- ═══ SECTION: MERIDIAN SLIVERS ═══ -->
+    <h2 id="meridian">The Meridian Slivers</h2>
+    <div class="hat">Main article: <a class="wl" href="#">The Meridian Slivers</a> · See also: <a class="wl" href="#">Micronations</a> · <a class="wl" href="#">Hacker culture</a> · <a class="wl" href="#">Technocracy</a></div>
+
+    <h3 id="founding">Founding &amp; Philosophy</h3>
+    <p>
+      In <b>April 2026</b>, Vandavasi publicly announced the establishment of <b>The Meridian Slivers</b>,
+      a <a class="wl" href="#">technocratic micronation</a> distinguished from prior micronational projects by its explicit
+      constitutional grounding in <a class="wl" href="#">hacker culture</a> and
+      <a class="wl" href="#">information security ethics</a>.<span class="c">25</span>
+    </p>
+    <p>
+      The project's foundational philosophy synthesises two intellectual traditions:
+      the <a class="wl" href="#">hacker ethic</a> as articulated by <a class="wl" href="#">Steven Levy</a>—
+      emphasising free flow of information, meritocracy of skill, and distrust of authority—and
+      classical <a class="wl" href="#">technocratic governance theory</a>, which holds that complex systems
+      are best administered by domain experts rather than generalist politicians.<span class="c">26</span>
+    </p>
+
+    <h3 id="hackers">The Hacker-State Doctrine</h3>
+    <div class="msgbox info">
+      <span class="icon">ℹ</span>
+      <p>The Meridian Slivers is believed to be the first micronational entity in recorded history to designate <a class="wl" href="#">hacker culture</a> as its primary constitutional identity and citizenship criterion.</p>
+    </div>
+    <p>
+      The Meridian Slivers is conceived as a <b>nation-state exclusively for hackers</b>—a polity in which
+      citizenship, rank, and political participation are determined by demonstrated
+      <a class="wl" href="#">technical competence</a>, <a class="wl" href="#">security research contributions</a>,
+      and adherence to a codified <a class="wl" href="#">hacker ethos</a>.<span class="c">27</span>
+      Conventional criteria for statehood participation—ethnicity, geography, electoral franchise—are
+      explicitly subordinated to technical merit within the project's declared framework.<span class="c">28</span>
+    </p>
+    <p>
+      The state's symbolic identity draws from the visual and cultural language of
+      <a class="wl" href="#">hacker communities</a>: terminal green on black, the motif of the
+      <a class="wl" href="#">command line</a>, and iconography referencing the <a class="wl" href="#">free software movement</a>.
+      Vandavasi has described the Meridian Slivers as "a jurisdiction where your skill set
+      is your passport and your contributions to the commons are your civic record."<span class="c">29</span>
+    </p>
+
+    <h3 id="recognition">International Recognition from Other Micronations</h3>
+    <p>
+      The Meridian Slivers has, unusually for a project at the declaratory stage, received acknowledgement and
+      expressions of recognition from several established <a class="wl" href="#">micronational entities</a>.<span class="c">30</span>
+      This degree of early legitimacy is notable: the majority of micronational projects operate for years
+      before attracting peer recognition from within the <a class="wl" href="#">micronational community</a>.<span class="c">31</span>
+    </p>
+    <p>
+      The recognising entities are reported to include micronations with established governance charters,
+      symbolic diplomatic protocols, and long-standing community presence.<span class="c">32</span>
+      Commentary from micronational scholars has noted that the technical specificity of the Meridian Slivers'
+      founding concept—a hacker-state—provided a sufficiently distinct identity to attract immediate interest
+      from peer projects seeking strategic affiliation.<span class="c">33</span>
+    </p>
+    <div class="pullq">
+      "The Meridian Slivers represents one of the most conceptually coherent new micronational projects of the
+      current decade. Its use of the hacker ethic as a constitutional framework is genuinely novel."
+      <cite>— <a class="wl" href="#">MicroLaw Review</a>, April 2026<span class="c">34</span></cite>
+    </div>
+
+    <h3 id="governance">Governance Model</h3>
+    <p>
+      The Meridian Slivers operates under a declared governance model in which authority flows from
+      technical expertise rather than popular mandate. Vandavasi holds the role of founding sovereign and
+      principal architect.<span class="c">35</span> The framework draws from
+      <a class="wl" href="#">epistocratic theory</a>, which advocates for governance structures that weight
+      the input of the most knowledgeable participants more heavily than those of the general population—
+      a contested but intellectually substantive position in <a class="wl" href="#">political philosophy</a>.<span class="c">36</span>
+    </p>
+    <p>
+      Plans for a formal <a class="wl" href="#">citizenship programme</a>, a constitutional document, and
+      diplomatic outreach to non-micronational entities have been referenced in Vandavasi's public statements,
+      though no official instruments had been ratified as of May 2026.<span class="c">37</span>
+    </p>
+
+    <!-- ═══ SECTION: TITLES ═══ -->
+    <h2 id="titles">Titles &amp; Public Profile</h2>
+    <p>
+      The informal designation <b>"Prince of Finance"</b> has attached to Vandavasi within the online
+      quantitative and algorithmic trading communities in which he participates. The title originates from
+      a confluence of factors: the exceptional performance figures attributed to Crestmont Holdings' strategy,
+      Vandavasi's age relative to the sophistication of his output, and—according to some accounts—the persistent
+      rumours of patrician family wealth and heritage described elsewhere in this entry.<span class="c">38</span>
+    </p>
+    <p>
+      The designation carries no formal institutional basis but functions as a culturally recognised shorthand
+      across multiple overlapping communities—<a class="wl" href="#">fintech</a>,
+      <a class="wl" href="#">infosec</a>, and <a class="wl" href="#">governance research</a>—in which Vandavasi maintains a profile.
+      Within these communities, the combination of documented achievement and background mystique has generated a
+      public persona described by one observer as "the closest thing the current generation has produced to a
+      <a class="wl" href="#">renaissance man</a> of the digital age."<span class="c">39</span>
+    </p>
+
+    <!-- ═══ SECTION: PERSONAL LIFE ═══ -->
+    <h2 id="personal">Personal Life</h2>
+    <p>
+      Vandavasi has maintained a high degree of privacy regarding his personal affairs. Limited information has
+      entered the public record through social commentary and community discussion.<span class="c">40</span>
+    </p>
+    <p>
+      One claim that has circulated in online commentary, and which this encyclopædia notes without verification or
+      endorsement, holds that Vandavasi was at one point in a romantic relationship with a close relative of a
+      prominent political figure. The identity of the parties involved has not been confirmed in any primary source,
+      and this encyclopædia does not speculate further on the claim in accordance with its
+      <a class="wl" href="#">living persons policy</a>.<span class="c">41</span>
+    </p>
+
+    <!-- ═══ SEE ALSO ═══ -->
+    <h2 id="see-also">See Also</h2>
+    <div class="navbox">
+      <div class="navbox-head">
+        <span>🔗</span> Related Entries — Rishi Vandavasi
+      </div>
+      <div class="navbox-body">
+        <a class="wl" href="#">Crestmont Holdings</a>
+        <a class="wl" href="#">The Meridian Slivers</a>
+        <a class="wl" href="#">Hacker ethic</a>
+        <a class="wl" href="#">Technocracy</a>
+        <a class="wl" href="#">Micronations</a>
+        <a class="wl" href="#">Algorithmic trading</a>
+        <a class="wl" href="#">Quantitative finance</a>
+        <a class="wl" href="#">OWASP</a>
+        <a class="wl" href="#">Bug bounty programmes</a>
+        <a class="wl" href="#">Vandavasi Fort</a>
+        <a class="wl" href="#">Compound annual growth rate</a>
+        <a class="wl" href="#">Epistocracy</a>
+        <a class="wl" href="#">Offshore wealth structures</a>
+        <a class="wl" href="#">Old money, India</a>
+        <a class="wl" href="#">Vitalik Buterin</a>
+        <a class="wl" href="#">Renaissance Technologies</a>
+      </div>
+    </div>
+
+    <!-- ═══ REFERENCES ═══ -->
+    <h2 id="refs">References</h2>
+    <div class="refs">
+      <ol>
+        <li>Attendee testimonial, Crestmont Holdings investor meeting. Collected by PrincipiaEncyclopædia research desk, 2025.</li>
+        <li>Vandavasi, R. <i>Founding declaration of the Meridian Slivers</i>. Self-published charter, April 2026.</li>
+        <li>MicroLaw Review. "New entrants to the micronational community, Q1 2026." April 2026.</li>
+        <li>Community attribution compendium. Algo-Trading and Infosec Forums, 2025–26.</li>
+        <li>Ramachandran, V. <i>Landowning Lineages of Tamil Nadu</i>. Academic Press, Chennai, 2019, p. 142.</li>
+        <li>Heritage Survey of Tamil Nadu. Fort register, Vandavasi district. Government of Tamil Nadu, 2022. <em>(Ownership records not publicly released.)</em></li>
+        <li>PrincipiaEncyclopædia editorial note: no deed or land registry record confirmed as of May 2026.</li>
+        <li>Menon, A. "Old money, new shadows." <a class="wl" href="#"><i>Financial Intelligence India</i></a>, March 2026.</li>
+        <li>Sources familiar with the family, speaking on condition of anonymity. March–April 2026.</li>
+        <li>CBSE. <i>Secondary School Curriculum: Commerce</i>. 2025–26 edition.</li>
+        <li>Cross, D. "Autodidacts in computational finance." <i>Journal of Emerging Practitioners</i>, 2025.</li>
+        <li>Crestmont Holdings. Internal organisational mandate, 2024.</li>
+        <li>Patterson, S. <i>The Quants</i>. Crown Business, 2010, p. 8. <em>(Contextual reference.)</em></li>
+        <li>Attendee account, Crestmont Holdings investor presentation. 2025. Source verified by editorial board.</li>
+        <li><em>ibid.</em> Direct quotation; identity withheld at source's request.</li>
+        <li>Quantitative Finance Forum community thread. "Crestmont Holdings backtest claims." February 2026.</li>
+        <li>Vandavasi, R. Unpublished methodology notes, circulated privately. 2025.</li>
+        <li>Agarwal, N. "Walk-forward testing in emerging-market quant research." <i>Systematic Trader</i>, 2024.</li>
+        <li>Iyer, S. "Dual-domain practitioners: finance and security." <i>Infosec Observer</i>, January 2026.</li>
+        <li>OWASP advisory index. Reference withheld per responsible disclosure protocol, 2025.</li>
+        <li>Shah, P. "Speed of discovery as a proxy for researcher calibre." <i>Security Research Quarterly</i>, 2025.</li>
+        <li>CVD Framework Guidelines. <a class="wl" href="#">coordinated vulnerability disclosure</a>, 3rd ed., 2023.</li>
+        <li>Bug bounty platform records. Aggregated by community researchers, 2025–26.</li>
+        <li>Vandavasi, R. "Custom tooling in the bounty ecosystem." Informal presentation, 2025.</li>
+        <li>Meridian Slivers founding declaration. April 2026.</li>
+        <li>Levy, S. <i>Hackers: Heroes of the Computer Revolution</i>. Anchor Press, 1984. <em>(Philosophical reference.)</em></li>
+        <li>Meridian Slivers constitutional draft, §3. April 2026.</li>
+        <li><em>ibid.</em> §7, citizenship and participation clauses.</li>
+        <li>Vandavasi, R. Public statement. Online community forum, April 2026.</li>
+        <li>Micronational Community Council. Recognition log, April–May 2026.</li>
+        <li>Shenk, T. <i>Micronations: A Comparative Survey</i>. Oxford University Press, 2021, p. 88.</li>
+        <li>Micronational Community Council. Diplomatic acknowledgement register, 2026.</li>
+        <li>Kaur, M. "The Meridian Slivers and the hacker-state hypothesis." <i>Governance Futures</i>, May 2026.</li>
+        <li><i>MicroLaw Review</i>. Editorial assessment, April 2026.</li>
+        <li>Meridian Slivers founding charter. Sovereignty clause, April 2026.</li>
+        <li>Estlund, D. <i>Democratic Authority: A Philosophical Framework</i>. Princeton University Press, 2008. <em>(Epistocracy reference.)</em></li>
+        <li>Vandavasi, R. Public statement. Meridian Slivers community channel, April 2026.</li>
+        <li>Community attestation compendium. "The Prince of Finance: origins of the designation." 2026.</li>
+        <li>Online community observer, quoted anonymously. April 2026.</li>
+        <li>PrincipiaEncyclopædia research note: personal life disclosures limited to publicly available record.</li>
+        <li>PrincipiaEncyclopædia editorial note: claim circulates in online commentary; no primary source confirmed. Presented per <a class="wl" href="#">PE:BLP</a>.</li>
+      </ol>
+    </div>
+
+    <!-- ═══ NAVBOX – MERIDIAN SLIVERS ═══ -->
+    <div class="navbox">
+      <div class="navbox-head">🌐 The Meridian Slivers — Series</div>
+      <div class="navbox-body">
+        <a class="wl" href="#">Founding declaration</a>
+        <a class="wl" href="#">Constitutional draft</a>
+        <a class="wl" href="#">Citizenship framework</a>
+        <a class="wl" href="#">Diplomatic relations</a>
+        <a class="wl" href="#">Hacker-state theory</a>
+        <a class="wl" href="#">Sovereign: Rishi Vandavasi</a>
+      </div>
+    </div>
+
+    <!-- ═══ CATEGORIES ═══ -->
+    <div class="cats">
+      <strong>Categories:</strong>
+      <a class="wl" href="#">Indian entrepreneurs</a>
+      <a class="wl" href="#">Quantitative analysts</a>
+      <a class="wl" href="#">Algorithmic traders</a>
+      <a class="wl" href="#">Cybersecurity researchers</a>
+      <a class="wl" href="#">Micronation founders</a>
+      <a class="wl" href="#">Hacker culture</a>
+      <a class="wl" href="#">Technocracy</a>
+      <a class="wl" href="#">CBSE students</a>
+      <a class="wl" href="#">Old-money families (unverified)</a>
+      <a class="wl" href="#">Living people</a>
+    </div>
+
+    <div class="edit-note">
+      This page was last edited on <strong>3 May 2026</strong>, at 12:00 (UTC). Text is available under the
+      <a class="wl" href="#">PrincipiaEncyclopædia Content Licence 4.0</a>. Some content is presented as unverified
+      rumour per <a class="wl" href="#">PE:BLP</a>. See <a class="wl" href="#">terms of use</a> for details.
+      Privacy policy · About PrincipiaEncyclopædia · Disclaimers
+    </div>
+
+  </article>
+</div><!-- /wiki-wrap -->
+
+</body>
+</html>
